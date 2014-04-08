@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "NetworkLib.h"
+#import "AFNetworking.h"
 
 @interface ViewController ()
 
@@ -17,7 +19,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    NetworkLib *nl = [[NetworkLib alloc] init];
+    [nl getGithubReposForUser:@"burczyk" withSuccess:^(id responseObject) {
+        NSLog(@"Repos: %@", responseObject);
+    } failure:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
 }
 
 - (void)didReceiveMemoryWarning
